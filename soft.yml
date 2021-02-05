@@ -4,7 +4,7 @@
     - name: Setup soft {{ item }}
       package:
         state: present
-        name: {{ item }}
+        name: "{{ item }}"
       loop:
         - vim
         - sddm 
@@ -25,21 +25,21 @@
         - npm
         - tilix
         - ncdu
-        - slack-desktop
+        #- slack-desktop
         - bat
         - exa
-        - ripgrip
-        - oh-my-zsh-git
+        - ripgrep
+        #- oh-my-zsh-git
     - name: Start and Enable sddm
       systemd:
         name: sddm
         state: started
         enabled: yes
-    - name: git clone smartgit
-        git:
-          repo: https://aur.archlinux.org/smartgit.git
-          dest: {{ lookup('env', 'HOME') }}/.build/smartgit
-    - name: Install smartgit
-        command:
-          chdir: {{ lookup('env', 'HOME') }}/.build/smartgit
-          cmd: makepkg -is 
+    # - name: git clone smartgit
+    #   git:
+    #     repo: https://aur.archlinux.org/smartgit.git
+    #     dest: "{{ lookup('env', 'HOME') }}/.build/smartgit"
+    # - name: Install smartgit
+    #     command:
+    #       chdir: {{ lookup('env', 'HOME') }}/.build/smartgit
+    #       cmd: makepkg -is 
