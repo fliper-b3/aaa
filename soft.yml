@@ -18,14 +18,18 @@
         - dhcpcd
         - git
         - telegram-desktop
-        - sudo
         - xterm
         - zsh
-        - gnome gnome-extra
         - wget 
         - curl
         - npm
         - tilix
+        - ncdu
+        - slack-desktop
+        - bat
+        - exa
+        - ripgrip
+        - oh-my-zsh-git
     - name: Start and Enable sddm
       systemd:
         name: sddm
