@@ -1,5 +1,5 @@
 #!/bin/bash
-FILENAME="/home/ivan/aaa/git_soft.txt"
+FILENAME="{{ backup_dir }}/aur.git.url.txt"
 rm -f ${FILENAME}
 cd ${HOME}/.build/ 
 for FOLDER in $(ls); do

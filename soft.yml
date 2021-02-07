@@ -1,9 +1,10 @@
 ---
 - hosts: all
   vars:
-    repo_list: "{{ lookup('file', '/home/ivan/aaa/git_soft.txt').split()  }}"
-    soft_list: "{{ lookup('file', '/home/ivan/aaa/soft.list.txt').split() }}"
-    backup_dconf_file: "/home/ivan/gnome.backup.dconf"
+    repo_list:  "{{ lookup('file', '.backup/aur.url.txt').split() }}"
+    soft_list:  "{{ lookup('file', '.backup/pacman.installed.txt').split() }}"
+    build_dir:  "{{ lookup('env', 'HOME') }}/.build"
+    backup_dir: "{{ lookup('env', 'HOME') }}/.backup"
   tasks:
     # - name: Setup softs list
     #   package:
@@ -19,29 +20,76 @@
     #   become: yes
     #   become_user: "{{ user_name }}"
     #   block:
-    #     - name: Create mountpoint for boot volume
+    #     - name: Create build dir
     #       file:
-    #         path: "{{ lookup('env', 'HOME') }}/.build"
+    #         path: "{{ build_dir }}"
+    #         state: directory
+    #     - name: Create backup dir
+    #       file:
+    #         path: "{{ backup_dir }}"
     #         state: directory
     #     - name: git clone aur soft
     #       git:
     #         repo: "{{ item }}" 
-    #         dest: "{{ lookup('env', 'HOME') }}/.build/{{ folder_name | trim  }}"
+    #         dest: "{{ build_dir }}/{{ folder_name | trim  }}"
     #         force: yes
     #       vars:
     #         folder_name: "{{ item | urlsplit('path') | basename | regex_replace('(.*)\\.git$', '\\1') }} "
     #       loop: "{{ repo_list }}"
-    #     - name: Install smartgit
+    #     - name: Install aur soft
     #       command:
-    #         chdir: "{{ lookup('env', 'HOME') }}/.build/{{ folder_name | trim }}"
+    #         chdir: "{{ build_dir }}/{{ folder_name | trim }}"
     #         cmd: makepkg --install --noconfirm --force --clean --syncdeps
     #       vars:
     #         folder_name: "{{ item | urlsplit('path') | basename | regex_replace('(.*)\\.git$', '\\1') }} "
     #       loop: "{{ repo_list }}"
+
     - name: Copy gnome.backup.dconf
       copy:
-        src: "gnome.backup.dconf"
-        dest: "{{ backup_dconf_file }}"
+        src: ".backup/gnome.backup.dconf"
+        dest: "{{ backup_dir }}/gnome.backup.dconf"
 
     - name: Restory dconf backup
-      shell: "dconf load -f / < {{ backup_dconf_file }}"
+      shell: "dconf load -f / < {{ backup_dir }}/gnome.backup.dconf"
+
+    - name: Copy scripts to /usr/bin/
+      template:
+        src: "scripts/{{ item }}"
+        dest: "/usr/bin/{{ item }}"
+      loop:
+        - aur.backup.sh
+        - pacman.backup.sh
+
+    - name: Copy services cronjobs to /etc/systemd/system
+      template:
+        src: "services/{{ item }}"
+        dest: "/etc/systemd/system/{{ item }}"
+      loop:
+        - pacman.backup.timer
+        - pacman.backup.service
+        - aur.backup.service
+        - aur.backup.timer
+        - dconf.backup.service
+        - dconf.backup.timer
+        - zsh.backup.service
+        - zsh.backup.timer
+    
+    - name: Start and enable services cronjobs
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop:
+        - zsh.backup.timer
+        - aur.backup.timer
+        - dconf.backup.timer
+        - pacman.backup.timer
+    
+    - name: Just force systemd to reread configs
+      ansible.builtin.systemd:
+        daemon_reload: yes
+
+    - name: Backup .zshrc
+      template:
+        src: ".backup/.zshrc"
+        dest: "{{ lookup('env', 'HOME') }}/.zshrc"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-FILENAME="/home/ivan/aaa/soft.list.txt"
-PACKAGELIST="$(pacman -Q | cut -d ' ' -f 1)"
+FILENAME="{{ backup_dir }}/pacman.installed.txt"
+PACKAGELIST="$(/usr/bin/pacman -Q | /usr/bin/cut -d ' ' -f 1)"
 
 echo "Prepare save installed packeges to file $FILENAME"
 echo "$PACKAGELIST" > "$FILENAME"
