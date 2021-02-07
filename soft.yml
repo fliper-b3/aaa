@@ -54,6 +54,7 @@
 
     - name: Copy scripts to /usr/bin/
       template:
+        mode: 'u+x'
         src: "scripts/{{ item }}"
         dest: "/usr/bin/{{ item }}"
       loop:
