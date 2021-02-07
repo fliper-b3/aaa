@@ -1,0 +1,384 @@
+[com/gexperts/Tilix]
+accelerators-enabled=true
+app-title='cmd'
+auto-hide-mouse=true
+background-image-mode='scale'
+close-with-last-session=true
+control-scroll-zoom=true
+enable-wide-handle=true
+focus-follow-mouse=false
+new-instance-mode='new-window'
+paste-advanced-default=false
+paste-strip-first-char=true
+prompt-on-close=false
+prompt-on-close-process=false
+prompt-on-delete-profile=false
+prompt-on-new-session=false
+session-name=''
+sidebar-on-right=true
+tab-position='bottom'
+terminal-title-show-when-single=false
+terminal-title-style='small'
+theme-variant='dark'
+unsafe-paste-alert=false
+use-overlay-scrollbar=true
+use-tabs=true
+warn-vte-config-issue=false
+window-save-state=true
+window-state=87184
+window-style='disable-csd-hide-toolbar'
+
+[com/gexperts/Tilix/keybindings]
+app-new-session='<Primary>n'
+app-new-window='disabled'
+app-preferences='<Primary>p'
+session-close='<Primary>q'
+terminal-add-bookmark='disabled'
+terminal-advanced-paste='<Primary><Shift>p'
+terminal-file-browser='<Primary>f'
+terminal-find-next='<Primary><Shift>n'
+terminal-find-previous='disabled'
+terminal-insert-number='disabled'
+terminal-layout='disabled'
+win-switch-to-next-session='<Primary>Right'
+win-switch-to-previous-session='<Primary>Left'
+
+[com/gexperts/Tilix/profiles]
+list=['2b7c4080-0ddd-46c5-8f23-563fd3ba789d']
+
+[com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
+background-color='#272822'
+background-transparency-percent=0
+badge-color='#AC7EA8'
+badge-color-set=false
+bold-color-set=false
+cursor-background-color='#777776767B7B'
+cursor-colors-set=false
+dim-transparency-percent=100
+foreground-color='#F8F8F2'
+highlight-background-color='#3D3D38384646'
+highlight-colors-set=false
+notify-silence-threshold=0
+palette=['#272822', '#F92672', '#A6E22E', '#F4BF75', '#66D9EF', '#AE81FF', '#A1EFE4', '#F8F8F2', '#75715E', '#F92672', '#A6E22E', '#F4BF75', '#66D9EF', '#AE81FF', '#A1EFE4', '#F9F8F5']
+terminal-bell='none'
+use-theme-colors=false
+visible-name='Default'
+
+[org/gnome/Music]
+window-maximized=true
+window-position=[0, 0]
+window-size=[1920, 1006]
+
+[org/gnome/calendar]
+active-view='month'
+window-maximized=true
+window-position=(0, 0)
+window-size=(1920, 1006)
+
+[org/gnome/control-center]
+last-panel='keyboard'
+
+[org/gnome/desktop/a11y/magnifier]
+mag-factor=6.0
+
+[org/gnome/desktop/app-folders]
+folder-children=['Utilities', 'YaST']
+
+[org/gnome/desktop/app-folders/folders/Utilities]
+apps=['gnome-abrt.desktop', 'gnome-system-log.desktop', 'gnome-system-monitor.desktop', 'gucharmap.desktop', 'nm-connection-editor.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.DejaDup.desktop', 'org.gnome.Dictionary.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.eog.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.fonts.desktop', 'org.gnome.Screenshot.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'simple-scan.desktop', 'vinagre.desktop', 'yelp.desktop']
+categories=['X-GNOME-Utilities']
+name='X-GNOME-Utilities.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/YaST]
+categories=['X-SuSE-YaST']
+name='suse-yast.directory'
+translate=true
+
+[org/gnome/desktop/calendar]
+show-weekdate=false
+
+[org/gnome/desktop/input-sources]
+per-window=true
+sources=[('xkb', 'us'), ('xkb', 'ru')]
+xkb-options=['lv3:ralt_switch']
+
+[org/gnome/desktop/interface]
+clock-show-weekday=true
+enable-animations=false
+gtk-enable-primary-paste=false
+gtk-im-module='gtk-im-context-simple'
+show-battery-percentage=false
+
+[org/gnome/desktop/notifications]
+application-children=['gnome-power-panel', 'telegramdesktop', 'chromium', 'org-gnome-fileroller', 'us-zoom-zoom', 'com-gexperts-tilix', 'smartgit', 'org-gnome-software', 'org-gnome-nautilus', 'org-gnome-baobab', 'xdg-desktop-portal-gtk', 'com-skype-client']
+
+[org/gnome/desktop/notifications/application/chromium]
+application-id='chromium.desktop'
+
+[org/gnome/desktop/notifications/application/com-gexperts-tilix]
+application-id='com.gexperts.Tilix.desktop'
+
+[org/gnome/desktop/notifications/application/com-skype-client]
+application-id='com.skype.Client.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-power-panel]
+application-id='gnome-power-panel.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-baobab]
+application-id='org.gnome.baobab.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-fileroller]
+application-id='org.gnome.FileRoller.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-nautilus]
+application-id='org.gnome.Nautilus.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-software]
+application-id='org.gnome.Software.desktop'
+
+[org/gnome/desktop/notifications/application/smartgit]
+application-id='smartgit.desktop'
+
+[org/gnome/desktop/notifications/application/telegramdesktop]
+application-id='telegramdesktop.desktop'
+
+[org/gnome/desktop/notifications/application/us-zoom-zoom]
+application-id='us.zoom.Zoom.desktop'
+
+[org/gnome/desktop/notifications/application/xdg-desktop-portal-gtk]
+application-id='xdg-desktop-portal-gtk.desktop'
+
+[org/gnome/desktop/peripherals/mouse]
+accel-profile='adaptive'
+natural-scroll=true
+
+[org/gnome/desktop/peripherals/touchpad]
+tap-to-click=true
+two-finger-scrolling-enabled=true
+
+[org/gnome/desktop/privacy]
+disable-microphone=false
+
+[org/gnome/desktop/wm/preferences]
+button-layout='close:appmenu'
+
+[org/gnome/epiphany/state]
+is-maximized=true
+window-position=(0, 0)
+window-size=(0, 0)
+
+[org/gnome/evolution-data-server]
+migrated=true
+network-monitor-gio-name=''
+
+[org/gnome/evolution]
+default-task-list='381545ae6ed026eb4450ad6a0d004136dc965b88'
+
+[org/gnome/file-roller/listing]
+list-mode='as-folder'
+name-column-width=250
+show-path=false
+sort-method='name'
+sort-type='ascending'
+
+[org/gnome/file-roller/ui]
+sidebar-width=200
+window-height=480
+window-width=600
+
+[org/gnome/mutter]
+dynamic-workspaces=true
+workspaces-only-on-primary=false
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='icon-view'
+search-filter-time-type='last_modified'
+
+[org/gnome/nautilus/window-state]
+initial-size=(890, 550)
+maximized=false
+sidebar-width=200
+
+[org/gnome/photos]
+window-maximized=true
+
+[org/gnome/recipes]
+user='ivan'
+
+[org/gnome/settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Primary>Escape'
+command='tilix --full-screen --focus-window'
+name='tilix '
+
+[org/gnome/settings-daemon/plugins/xsettings]
+antialiasing='grayscale'
+hinting='slight'
+
+[org/gnome/shell]
+enabled-extensions=['auto-move-windows@gnome-shell-extensions.gcampax.github.com']
+favorite-apps=['chromium.desktop', 'telegramdesktop.desktop', 'code-oss.desktop', 'smartgit.desktop', 'com.gexperts.Tilix.desktop', 'virt-manager.desktop', 'com.skype.Client.desktop']
+
+[org/gnome/shell/extensions/auto-move-windows]
+application-list=['chromium.desktop:1', 'com.gexperts.Tilix.desktop:6', 'smartgit.desktop:3', 'code-oss.desktop:5', 'telegramdesktop.desktop:2', 'com.slack.Slack.desktop:4']
+
+[org/gnome/shell/world-clocks]
+locations=@av []
+
+[org/gnome/software]
+check-timestamp=int64 1612614127
+first-run=false
+online-updates-timestamp=int64 1612614137
+
+[org/gnome/todo]
+default-provider='local'
+view='grid'
+window-maximized=true
+
+[org/gtk/settings/color-chooser]
+custom-colors=[(0.51372549019607838, 0.58039215686274515, 0.58823529411764708, 1.0), (0.027450980392156862, 0.21176470588235294, 0.25882352941176473, 1.0), (0.93333333333333335, 0.90980392156862744, 0.83529411764705885, 1.0), (0.0, 0.16862745098039217, 0.21176470588235294, 1.0), (0.14901960784313725, 0.54509803921568623, 0.82352941176470584, 1.0), (0.396078431372549, 0.4823529411764706, 0.51372549019607838, 1.0), (0.99215686274509807, 0.96470588235294119, 0.8901960784313725, 1.0), (0.32941176470588235, 0.33725490196078434, 0.32156862745098042, 1.0)]
+selected-color=(true, 0.0, 0.0, 0.0, 1.0)
+
+[org/gtk/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=true
+show-size-column=true
+show-type-column=true
+sidebar-width=174
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'
+window-position=(345, 79)
+window-size=(1231, 902)
+
+[org/virt-manager/virt-manager]
+manager-window-height=550
+manager-window-width=550
+xmleditor-enabled=true
+
+[org/virt-manager/virt-manager/confirm]
+delete-storage=false
+forcepoweroff=false
+unapplied-dev=false
+
+[org/virt-manager/virt-manager/connections]
+autoconnect=['qemu:///system']
+uris=['qemu:///system']
+
+[org/virt-manager/virt-manager/details]
+show-toolbar=true
+
+[org/virt-manager/virt-manager/new-vm]
+graphics-type='system'
+
+[org/virt-manager/virt-manager/urls]
+isos=['/home/libvirt/images/archlinux-2021.01.01-x86_64.iso', '/var/lib/libvirt/images/archlinux-2021.01.01-x86_64.iso']
+
+[org/virt-manager/virt-manager/vmlist-fields]
+disk-usage=false
+network-traffic=false
+
+[org/virt-manager/virt-manager/vms/08fd89dacfe0449cb0f0e054ebc015ca]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/19ffa8b3bfc047e092258f927656b295]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/1f02dad47e9c413c9b4597f37011f649]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1016)
+
+[org/virt-manager/virt-manager/vms/24cf58fc140947c5affe2a71e75cd049]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 889)
+
+[org/virt-manager/virt-manager/vms/25b2242efc8649a388de9e7053f881d4]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/2b29a1b874214f259aa538ecb3a1f355]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/45a6ee4b03b746129c5a10b27061f2b8]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/4f76232e050a46a6bc85bbef9a3a8ce4]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/51b290550dae406a9ae8e656fbcbd5f3]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/555a12adcffc41ec86de75b7d5424172]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/7cefcd9bb04442799a6ff4571006ff78]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 953)
+
+[org/virt-manager/virt-manager/vms/955f0be4a6494a2680f0aa224a63c75b]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/9a1ac390ce664302b32f6c3436d68063]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 837)
+
+[org/virt-manager/virt-manager/vms/9ff46efb1f2045d7921e0d4b93e2a400]
+autoconnect=1
+scaling=1
+vm-window-size=(960, 1016)
+
+[org/virt-manager/virt-manager/vms/c46e861d7f994b2f9586cb0b1f68ac46]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 886)
+
+[org/virt-manager/virt-manager/vms/c58c90a28a594957bc8d163c29eaba8b]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/e0b8375214524a3faa1d07c5a40706b3]
+autoconnect=1
+scaling=1
+vm-window-size=(943, 1016)
+
+[org/virt-manager/virt-manager/vms/e2931ee7c5454ad08aa423693f45cb23]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/e35ffe3bb6684399b21f8da41a0c20c9]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/eed33b183be7487fa0a0cd7d150a1369]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
