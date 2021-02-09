@@ -1,0 +1,122 @@
+---
+- hosts: all
+  # become_user: "{{ user_name }}"
+  become: yes
+  vars:
+    repo_list:  "{{ lookup('file', '.backup/aur.url.txt').split() }}"
+    soft_list:  "{{ lookup('file', '.backup/pacman.installed.txt').split() }}"
+    build_dir:  "{{ playbook_dir }}/.build"
+    backup_dir: "{{ playbook_dir }}/.backup"
+  tasks:
+    - name: Create build dir
+      file:
+        path: "{{ build_dir }}"
+        state: directory
+
+    - name: Create backup dir
+      file:
+        path: "{{ backup_dir }}"
+        state: directory
+
+    - name: git clone aur soft
+      git:
+        repo: "{{ item }}" 
+        dest: "{{ build_dir }}/{{ folder_name | trim  }}"
+        force: yes
+      vars:
+        folder_name: "{{ item | urlsplit('path') | basename | regex_replace('(.*)\\.git$', '\\1') }} "
+      loop: "{{ repo_list }}"
+
+    - name: Setup softs list
+      package:
+        state: present
+        name: "{{ item }}"
+      loop: "{{ soft_list }}"
+      ignore_errors: yes
+
+    - name: Setup Automatic Ansible Archlinux install (AAA) repo
+      git:
+        repo: https://github.com/ohmyzsh/ohmyzsh.git
+        dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
+        force: yes
+      loop: 
+        - https://github.com/reobin/typewritten.git
+
+    - name: Install aur soft
+      become_user: "{{ user_name }}"
+      command:
+        chdir: "{{ build_dir }}/{{ folder_name | trim }}"
+        cmd: /usr/bin/makepkg --install --noconfirm --force --clean --syncdeps
+      vars:
+        folder_name: "{{ item | urlsplit('path') | basename | regex_replace('(.*)\\.git$', '\\1') }} "
+      loop: "{{ repo_list }}"
+
+    - name: Copy scripts to /usr/bin/
+      template:
+        mode: 'u+x'
+        src: "{{ playbook_dir}}/scripts/{{ item }}"
+        dest: "/usr/bin/{{ item }}"
+      loop:
+        - aur.backup.sh
+        - pacman.backup.sh
+
+    - name: Copy services cronjobs to /etc/systemd/system
+      template:
+        src: "{{ playbook_dir}}/services/{{ item }}"
+        dest: "/etc/systemd/system/{{ item }}"
+      loop:
+        - pacman.backup.timer
+        - pacman.backup.service
+        - aur.backup.service
+        - aur.backup.timer
+        - dconf.backup.service
+        - dconf.backup.timer
+        - zsh.backup.service
+        - zsh.backup.timer
+
+    - name: Just force systemd to reread configs
+      ansible.builtin.systemd:
+        daemon_reload: yes
+    
+    - name: Start and enable services
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop:
+        - zsh.backup.timer
+        - aur.backup.timer
+        - dconf.backup.timer
+        - pacman.backup.timer
+        - sddm
+
+    - name: Dance with zsh, install oh-my-zsh https://github.com/ohmyzsh/ohmyzsh
+      git:
+        repo: https://github.com/ohmyzsh/ohmyzsh.git
+        dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
+        force: yes
+      loop: 
+        - https://github.com/reobin/typewritten.git
+
+    - name: Dance with zsh, install theme https://typewritten.dev
+      git:
+        repo: https://github.com/reobin/typewritten.git
+        dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/themes/typewritten/"
+        force: yes
+
+    - name: Dance with zsh, install zsh-autosuggestions plugin
+      git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions 
+        dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/zsh-autosuggestions"
+        force: yes
+
+    - name: Dance with zsh, restory my .zshrc file
+      template:
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        src: "{{ backup_dir }}/.zshrc"
+        dest: "{{ lookup('env', 'HOME') }}/.zshrc"
+
+    - name: Restory dconf backup
+      become_user: "{{ user_name }}"
+      shell: "/usr/bin/dbus-launch /usr/bin/dconf load -f / < {{ backup_dir }}/gnome.backup.dconf"

@@ -1,0 +1,178 @@
+---
+- hosts: all
+  tasks:
+    - name: Abort if the host is not booted from the Arch install media
+      fail:
+        msg: "This host is not booted from the Arch install media!"
+      when: ansible_nodename != 'archiso'
+
+    - name: Synchronize clock via NTP
+      command: timedatectl set-ntp true
+
+    - name: unmount /mnt/boot/efi
+      mount:
+        path: /mnt/boot/efi
+        state: unmounted
+
+    - name: unmount /mnt
+      mount:
+        path: /mnt
+        state: unmounted
+
+    - name: Collect partinion info after run parted
+      parted:
+        unit: MiB
+        state: info
+        device: '{{ install_drive }}'
+      register: parted_info
+
+    - name: Get partinion info before run parted
+      debug:
+        msg: "{{ parted_info }}"
+
+    - name: Create boot partition
+      parted:
+        device: '{{ install_drive }}'
+        label: gpt
+        number: 1
+        part_end: 512MB
+        name: boot
+        flags: [boot, esp]
+        state: present
+      when: parted_info.partitions | length == 0
+
+    - name: Create root partition
+      parted:
+        device: '{{ install_drive }}'
+        label: gpt
+        number: 2
+        part_start: 512MB
+        name: root
+        flags: []
+        state: present
+      when: parted_info.partitions | length == 0
+      
+    - name: Collect partinion info after run parted
+      parted:
+        unit: MiB
+        state: info
+        device: '{{ install_drive }}'
+      register: parted_info
+
+    - name: Get partinion info after run parted
+      debug:
+        msg: "{{ parted_info }}"
+
+    - name: Create vfat filesystem in boot volume
+      filesystem:
+        dev: "{{ install_drive }}{{ item.num }}"
+        fstype: vfat
+        opts: -F32
+      loop: "{{ parted_info.partitions }}"
+      when: item.name == "boot"
+
+    - name: Create ext4 filesystem in root volume
+      filesystem:
+        dev: "{{ install_drive }}{{ item.num }}"
+        fstype: ext4
+      loop: "{{ parted_info.partitions }}"
+      when: item.name == "root"
+
+    - name: mount /mnt
+      mount:
+        fstype: ext4
+        path: /mnt
+        src: "{{ install_drive }}{{ item.num }}"
+        state: mounted
+      loop: "{{ parted_info.partitions }}"
+      when: item.name == "root"
+
+    - name: Create mountpoint for boot volume
+      file:
+        path: /mnt/boot/efi
+        state: directory
+
+    - name: mount /mnt/boot/efi
+      mount:
+        path: /mnt/boot/efi
+        src: "{{ install_drive }}{{ item.num }}"
+        fstype: vfat
+        state: mounted
+      loop: "{{ parted_info.partitions }}"
+      when: item.name == "boot"
+
+    - name: Run pacstrap
+      command: pacstrap /mnt base dhcpcd efibootmgr grub linux linux-firmware sudo python3 openssh vim git fakeroot
+
+    - name: Install grub
+      command: arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --removable
+
+    - name: Create grub config
+      command: arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+    
+    - name: Add root volume to fstab
+      mount:
+        fstab: /mnt/etc/fstab
+        path: /
+        src: "{{ install_drive }}{{ item.num }}"
+        fstype: ext4
+        opts: defaults
+        state: present
+      loop: "{{ parted_info.partitions }}"
+      when: item.name == "root"
+
+    - name: Set local timezone
+      command: arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+
+    - name: Generate adjtime file
+      command: arch-chroot /mnt hwclock --systohc
+
+    - name: Configure locale.gen
+      lineinfile:
+        dest: /mnt/etc/locale.gen
+        regexp: '{{ item.regex }}'
+        line: '{{ item.line }}'
+      loop:
+        - {regex: en_US\.UTF-8 UTF-8, line: en_US.UTF-8 UTF-8}
+        - {regex: en_US ISO-8859-1, line: en_US ISO-8859-1}
+        - {regex: ru_RU\.KOI8-R KOI8-R , line: ru_RU.KOI8-R KOI8-R}
+        - {regex: ru_RU\.UTF-8 UTF-8 , line: ru_RU.UTF-8 UTF-8}
+        - {regex: ru_RU ISO-8859-5 , line: ru_RU ISO-8859-5}
+
+    - name: Create locale.conf
+      copy:
+        content: "LANG=en_US.UTF-8"
+        dest: /mnt/etc/locale.conf
+
+    - name: Generate locales
+      command: arch-chroot /mnt locale-gen
+
+    - name: Check if user exist
+      command: arch-chroot /mnt id -u {{ user_name }}
+      register: if_user_exists
+      ignore_errors: yes
+    
+    - name: Show user info 
+      debug:
+        msg: "{{ if_user_exists }}"
+    
+    - name: Create user account
+      command: arch-chroot /mnt useradd --create-home --user-group --groups wheel {{ user_name }} --password {{ user_password }}
+      when: if_user_exists.rc == 1
+        
+    - name: Create user's ssh directory
+      file:
+        path: /mnt/home/{{ user_name }}/.ssh
+        state: directory
+
+    - name: Set mode, owner, and group on user's ssh directory
+      command: arch-chroot /mnt {{ item }}
+      loop:
+        - chmod 0700 /home/{{ user_name }}/.ssh
+        - chown {{ user_name }}:{{ user_name }} /home/{{ user_name }}/.ssh
+
+    - name: Give passwordless sudo access to wheel group
+      copy:
+        content: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        dest: /mnt/etc/sudoers.d/wheel
+        validate: /usr/sbin/visudo --check --file=%s
