@@ -990,3 +990,14 @@ zsh
 zstd
 zvbi
 zxing-cpp
+cron
+oh-my-zsh-git
+ebtables
+bind-tools
+openvpn
+jq
+yq
+netctl
+sops
+kubectx
+helm

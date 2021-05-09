@@ -1,0 +1,6 @@
+https://aur.archlinux.org/acroread.git
+https://aur.archlinux.org/oh-my-zsh-git.git
+https://aur.archlinux.org/slack-desktop.git
+https://aur.archlinux.org/smartgit
+https://aur.archlinux.org/sops.git
+https://aur.archlinux.org/zoom.git

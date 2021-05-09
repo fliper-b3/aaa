@@ -1,0 +1,7 @@
+amazonwebservices.aws-toolkit-vscode
+hashicorp.terraform
+ms-azuretools.vscode-docker
+ms-python.python
+Vladeeg.vscode-theme-vdark
+vscodevim.vim
+vscoss.vscode-ansible

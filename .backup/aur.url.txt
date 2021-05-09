@@ -1,3 +1,0 @@
-https://aur.archlinux.org/slack-desktop.git
-https://aur.archlinux.org/smartgit
-https://aur.archlinux.org/zoom.git
