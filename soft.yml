@@ -40,7 +40,7 @@
       become_user: "{{ user_name }}"
       command:
         cmd: "/usr/bin/code --install-extension {{ item }}"
-      loop: "{{ vscode-ext }}"
+      loop: "{{ vscode_ext }}"
     
     - name: install oh-my-zsh
       become_user: "{{ user_name }}"
