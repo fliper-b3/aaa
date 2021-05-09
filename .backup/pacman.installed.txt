@@ -991,8 +991,6 @@ zstd
 zvbi
 zxing-cpp
 cron
-oh-my-zsh-git
-ebtables
 bind-tools
 openvpn
 jq
@@ -1001,3 +999,5 @@ netctl
 sops
 kubectx
 helm
+oh-my-zsh-git
+ebtables

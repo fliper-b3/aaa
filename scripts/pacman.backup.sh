@@ -1,5 +1,6 @@
 #!/bin/bash
 PACKAGELIST=".backup/pacman.installed.txt"
+PACKAGEIGNOR=".backup/pacman.installed.txt"
 #FILENAME="{{ backup_dir }}/pacman.installed.txt"
 #PACKAGELIST="$(/usr/bin/pacman -Q | /usr/bin/cut -d ' ' -f 1)"
 #
@@ -17,7 +18,8 @@ do
       if [ $? -eq 0 ]; then
          echo -n "."
       else 
-         echo ${PAC} >> ${PACKAGELIST} 
+         grep ${PAC} ${PACKAGEIGNOR} > /dev/null 2>&1
+         [ $? -ne 0 ] && echo ${PAC} >> ${PACKAGELIST} 
       fi
    fi
 done
