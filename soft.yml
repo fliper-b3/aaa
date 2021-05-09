@@ -81,6 +81,12 @@
         - { name: "backup installed packages", path: "{{ playbook_dir }}/scripts/pacman.backup.sh" }
         - { name: "backup vscode plugins",     path: "{{ playbook_dir }}/scripts/code.plubins.backup.sh" }
         - { name: "backup zsh",                path: "/usr/bin/cp ${HOME}/.zshrc {{ playbook_dir }}/.backup/.zshrc" }
+        - { name: "backup autostart dir",      path: "{{ playbook_dir }}/scripts/autostart.sh" }
+    
+    - name: copy autostart dir
+      copy:
+        src: "{{ playbook_dir }}/.backup/autostart/"
+        dst: "{{ lookup('env', 'HOME')/.config/autostart/"
 
     - name: Start and enable services
       service:
