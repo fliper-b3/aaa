@@ -1,10 +1,26 @@
 ---
 - hosts: all
   tasks:
+
     - name: Abort if the host is not booted from the Arch install media
       fail:
         msg: "This host is not booted from the Arch install media!"
       when: ansible_nodename != 'archiso'
+
+    - name: Abort if the disk name is not defined
+      fail:
+        msg: |
+          You have not defined an variable in a command line 
+          For example "--extra-vars=install_driver=/dev/nvme0n1"
+      when: install_driver is not defined
+
+    - name: Abort if the disk suffix is not defined
+      fail:
+        msg: |
+          You have not defined an variable in a command line 
+          ONLY SUFFIX LETTER(CHARACTER)
+          For example "--extra-vars=part_suffix=p"
+      when: part_suffix is not defined
 
     - name: Synchronize clock via NTP
       command: timedatectl set-ntp true
@@ -19,44 +35,31 @@
         path: /mnt
         state: unmounted
 
-    - name: Collect partinion info after run parted
-      parted:
-        unit: MiB
-        state: info
-        device: '{{ install_drive }}'
-      register: parted_info
-
-    - name: Get partinion info before run parted
-      debug:
-        msg: "{{ parted_info }}"
-
     - name: Create boot partition
       parted:
-        device: '{{ install_drive }}'
+        device: '{{ install_driver }}'
         label: gpt
         number: 1
         part_end: 512MB
         name: boot
         flags: [boot, esp]
         state: present
-      when: parted_info.partitions | length == 0
 
     - name: Create root partition
       parted:
-        device: '{{ install_drive }}'
+        device: '{{ install_driver }}'
         label: gpt
         number: 2
         part_start: 512MB
         name: root
         flags: []
         state: present
-      when: parted_info.partitions | length == 0
       
-    - name: Collect partinion info after run parted
+    - name: Collect partinion info 
       parted:
         unit: MiB
         state: info
-        device: '{{ install_drive }}'
+        device: '{{ install_driver }}'
       register: parted_info
 
     - name: Get partinion info after run parted
@@ -65,7 +68,7 @@
 
     - name: Create vfat filesystem in boot volume
       filesystem:
-        dev: "{{ install_drive }}{{ item.num }}"
+        dev: "{{ install_driver }}{{ part_suffix }}{{ item.num }}"
         fstype: vfat
         opts: -F32
       loop: "{{ parted_info.partitions }}"
@@ -73,7 +76,7 @@
 
     - name: Create ext4 filesystem in root volume
       filesystem:
-        dev: "{{ install_drive }}{{ item.num }}"
+        dev: "{{ install_driver }}{{ part_suffix }}{{ item.num }}"
         fstype: ext4
       loop: "{{ parted_info.partitions }}"
       when: item.name == "root"
@@ -82,7 +85,7 @@
       mount:
         fstype: ext4
         path: /mnt
-        src: "{{ install_drive }}{{ item.num }}"
+        src: "{{ install_driver }}{{ part_suffix }}{{ item.num }}"
         state: mounted
       loop: "{{ parted_info.partitions }}"
       when: item.name == "root"
@@ -95,26 +98,37 @@
     - name: mount /mnt/boot/efi
       mount:
         path: /mnt/boot/efi
-        src: "{{ install_drive }}{{ item.num }}"
+        src: "{{ install_driver }}{{ part_suffix }}{{ item.num }}"
         fstype: vfat
         state: mounted
       loop: "{{ parted_info.partitions }}"
       when: item.name == "boot"
 
     - name: Run pacstrap
-      command: pacstrap /mnt base dhcpcd efibootmgr grub linux linux-firmware sudo python3 openssh vim git fakeroot
+      command: pacstrap /mnt base dhcpcd efibootmgr grub linux linux-firmware sudo python3 openssh vim git fakeroot wpa_supplicant netctl
 
     - name: Install grub
       command: arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --removable
 
     - name: Create grub config
       command: arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
-    
+
+    - name: Add /boot/efi volume to fstab
+      mount:
+        fstab: /mnt/etc/fstab
+        path: /boot/efi
+        src: "{{ install_driver }}{{ part_suffix }}{{ item.num }}"
+        fstype: vfat
+        opts: "rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro"
+        state: present
+      loop: "{{ parted_info.partitions }}"
+      when: item.name == "boot"
+
     - name: Add root volume to fstab
       mount:
         fstab: /mnt/etc/fstab
         path: /
-        src: "{{ install_drive }}{{ item.num }}"
+        src: "{{ install_driver }}{{ part_suffix }}{{ item.num }}"
         fstype: ext4
         opts: defaults
         state: present
