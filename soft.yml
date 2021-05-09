@@ -5,9 +5,9 @@
   vars:
     build_dir:  "{{ playbook_dir }}/.build"
     backup_dir: "{{ playbook_dir }}/.backup"
-    repo_list:  "{{ lookup('file', '{{ backup_dir }}/aur.url.txt').split() }}"
-    soft_list:  "{{ lookup('file', '{{ backup_dir }}/pacman.installed.txt').split() }}"
-    vscode_ext: "{{ lookup('file', '{{ backup_dir }}/vsc-ext.txt').split() }}"
+    repo_list:  "{{ lookup('file', lookup('vars', 'backup_dir')+'/aur.git.url.txt').split() }}"
+    soft_list:  "{{ lookup('file', lookup('vars', 'backup_dir')+'/pacman.installed.txt').split() }}"
+    vscode_ext: "{{ lookup('file', lookup('vars', 'backup_dir')+'/vsc-ext.txt').split() }}"
 
   tasks:
     - name: git clone aur soft
