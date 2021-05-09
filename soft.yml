@@ -87,7 +87,7 @@
       become_user: "{{ user_name }}"
       copy:
         src: "{{ playbook_dir }}/.backup/autostart/"
-        dst: "{{ lookup('env', 'HOME') }}/.config/autostart/"
+        dest: "{{ lookup('env', 'HOME') }}/.config/autostart/"
 
     - name: Start and enable services
       service:
