@@ -53,7 +53,6 @@ cairo
 cairomm
 cantarell-fonts
 cdparanoia
-cdrtools
 cheese
 chromaprint
 chromium
@@ -100,11 +99,9 @@ docbook-xml
 docbook-xsl
 docker
 dosfstools
-dotconf
 double-conversion
 dtc
 e2fsprogs
-ebtables
 edk2-ovmf
 efibootmgr
 efivar
@@ -178,7 +175,6 @@ gnome-autoar
 gnome-backgrounds
 gnome-bluetooth
 gnome-books
-gnome-boxes
 gnome-builder
 gnome-calculator
 gnome-calendar
@@ -195,7 +191,6 @@ gnome-disk-utility
 gnome-documents
 gnome-epub-thumbnailer
 gnome-font-viewer
-gnome-getting-started-docs
 gnome-keyring
 gnome-klotski
 gnome-logs
@@ -653,7 +648,6 @@ npth
 nspr
 nss
 numactl
-oh-my-zsh-git
 openal
 opencore-amr
 openexr
@@ -992,7 +986,6 @@ zip
 zita-alsa-pcmi
 zita-resampler
 zlib
-zoom
 zsh
 zstd
 zvbi
