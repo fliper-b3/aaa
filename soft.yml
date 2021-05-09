@@ -3,10 +3,12 @@
   # become_user: "{{ user_name }}"
   become: yes
   vars:
-    repo_list:  "{{ lookup('file', '.backup/aur.url.txt').split() }}"
-    soft_list:  "{{ lookup('file', '.backup/pacman.installed.txt').split() }}"
     build_dir:  "{{ playbook_dir }}/.build"
     backup_dir: "{{ playbook_dir }}/.backup"
+    repo_list:  "{{ lookup('file', '{{ backup_dir }}/aur.url.txt').split() }}"
+    soft_list:  "{{ lookup('file', '{{ backup_dir }}/pacman.installed.txt').split() }}"
+    vscode_ext: "{{ lookup('file', '{{ backup_dir }}/vsc-ext.txt').split() }}"
+
   tasks:
     - name: git clone aur soft
       git:
@@ -33,10 +35,16 @@
         folder_name: "{{ item | urlsplit('path') | basename | regex_replace('(.*)\\.git$', '\\1') }} "
       loop: "{{ repo_list }}"
     
-    - name: download oh-my-zsh install.sh script
+    - name: install vscode extenstions
       become_user: "{{ user_name }}"
       command:
-        cmd: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+        cmd: "/usr/bin/code --install-extension {{ item }}"
+      loop: "{{ vscode-ext }}"
+    
+    - name: install oh-my-zsh
+      become_user: "{{ user_name }}"
+      command:
+        cmd: 'echo "yes" | sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
 
     - name: Dance with zsh, install theme https://typewritten.dev
       git:
@@ -60,3 +68,20 @@
     - name: Restory dconf backup
       become_user: "{{ user_name }}"
       shell: "/usr/bin/dbus-launch /usr/bin/dconf load -f / < {{ backup_dir }}/gnome.backup.dconf"
+    
+    - name: setup cron jobs
+      cron:
+        user: "{{ user_name }}"
+        name: "{{ item.name }}"
+        special_time: daily
+        job: "{{ item.path }}"
+      loop:
+        - { name: "backup aur soft",           path: "{{ playbook_dir }}/scripts/aur.backup.sh" }
+        - { name: "backup installed packages", path: "{{ playbook_dir }}/scripts/pacman.backup.sh" }
+        - { name: "backup vscode plugins",     path: "{{ playbook_dir }}/scripts/code.plubins.backup.sh" }
+        - { name: "backup zsh",                path: "/usr/bin/cp ${HOME}/.zshrc {{ playbook_dir }}/.backup/.zshrc" }
+
+    - name: Start and enable services
+      service:
+        name: sddm
+        enabled: yes
