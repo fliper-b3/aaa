@@ -84,9 +84,10 @@
         - { name: "backup autostart dir",      path: "{{ playbook_dir }}/scripts/autostart.sh" }
     
     - name: copy autostart dir
+      become_user: "{{ user_name }}"
       copy:
         src: "{{ playbook_dir }}/.backup/autostart/"
-        dst: "{{ lookup('env', 'HOME')/.config/autostart/"
+        dst: "{{ lookup('env', 'HOME') }}/.config/autostart/"
 
     - name: Start and enable services
       service:
