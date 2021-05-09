@@ -999,5 +999,3 @@ netctl
 sops
 kubectx
 helm
-oh-my-zsh-git
-ebtables

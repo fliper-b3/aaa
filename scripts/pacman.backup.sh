@@ -1,6 +1,6 @@
 #!/bin/bash
 PACKAGELIST=".backup/pacman.installed.txt"
-PACKAGEIGNOR=".backup/pacman.installed.txt"
+PACKAGEIGNOR=".backup/pacman.ignore.txt"
 #FILENAME="{{ backup_dir }}/pacman.installed.txt"
 #PACKAGELIST="$(/usr/bin/pacman -Q | /usr/bin/cut -d ' ' -f 1)"
 #
