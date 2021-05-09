@@ -8,13 +8,6 @@
     build_dir:  "{{ playbook_dir }}/.build"
     backup_dir: "{{ playbook_dir }}/.backup"
   tasks:
-    - name: Setup Automatic Ansible Archlinux install (AAA) repo
-      git:
-        repo: git@github.com:fliper-b3/aaa
-        dest: "{{ lookup('env', 'HOME') }}/aaa"
-        force: yes
-
-
     - name: git clone aur soft
       git:
         repo: "{{ item }}" 
