@@ -11,6 +11,7 @@
 
   tasks:
     - name: git clone aur soft
+      become_user: "{{ user_name }}"
       git:
         repo: "{{ item }}" 
         dest: "{{ build_dir }}/{{ folder_name | trim  }}"
