@@ -1,0 +1,3 @@
+https://github.com/ohmyzsh/ohmyzsh.git
+https://github.com/unixorn/kubectx-zshplugin.git
+https://github.com/johanhaleby/kubetail.git

@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  # become_user: "{{ user_name }}"
   become: yes
   vars:
     build_dir:  "{{ lookup('env', 'HOME') }}/.build"
@@ -8,6 +7,7 @@
     repo_list:  "{{ lookup('file', lookup('vars', 'backup_dir')+'/aur.git.url.txt').split() }}"
     soft_list:  "{{ lookup('file', lookup('vars', 'backup_dir')+'/pacman.installed.txt').split() }}"
     vscode_ext: "{{ lookup('file', lookup('vars', 'backup_dir')+'/vsc-ext.txt').split() }}"
+    zsh_list:   "{{ lookup('file', lookup('vars', 'backup_dir')+'/zsh.customplugins.url.txt').split() }}"
 
   tasks:
     - name: git clone aur soft
@@ -66,10 +66,20 @@
         src: "{{ backup_dir }}/.zshrc"
         dest: "{{ lookup('env', 'HOME') }}/.zshrc"
 
+    - name: oh my zsh custom plugins install
+      become_user: "{{ user_name }}"
+      git:
+        repo: "{{ item }}" 
+        dest: "{{ lookup('env', 'HOME') }}/{{ folder_name }}"
+        force: yes
+      vars:
+        folder_name: ".oh-my-zsh/custom/plugins"
+      loop: "{{ zsh_list }}"
+
     - name: Restory dconf backup
       become_user: "{{ user_name }}"
       shell: "/usr/bin/dbus-launch /usr/bin/dconf load -f / < {{ backup_dir }}/gnome.backup.dconf"
-    
+
     - name: setup cron jobs
       cron:
         user: "{{ user_name }}"
@@ -77,11 +87,12 @@
         special_time: daily
         job: "{{ item.path }}"
       loop:
-        - { name: "backup aur soft",           path: "{{ playbook_dir }}/scripts/aur.backup.sh" }
-        - { name: "backup installed packages", path: "{{ playbook_dir }}/scripts/pacman.backup.sh" }
-        - { name: "backup vscode plugins",     path: "{{ playbook_dir }}/scripts/code.plubins.backup.sh" }
         - { name: "backup zsh",                path: "/usr/bin/cp ${HOME}/.zshrc {{ playbook_dir }}/.backup/.zshrc" }
+        - { name: "backup aur soft",           path: "{{ playbook_dir }}/scripts/aur.backup.sh" }
         - { name: "backup autostart dir",      path: "{{ playbook_dir }}/scripts/autostart.sh" }
+        - { name: "backup vscode plugins",     path: "{{ playbook_dir }}/scripts/code.plubins.backup.sh" }
+        - { name: "backup zsh custom plugins", path: "{{ playbook_dir }}/scripts/zsh.customplugins.backup.sh" }
+        - { name: "backup installed packages", path: "{{ playbook_dir }}/scripts/pacman.backup.sh" }
     
     - name: copy autostart dir
       copy:
