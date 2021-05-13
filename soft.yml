@@ -75,10 +75,11 @@
       loop: "{{ zsh_list }}"
 
     - name: Setup zsh for user
+      become_user: root
       replace:
         path: /etc/passwd
         regexp: "^{{ user_name }}:(x:\\d+:\\d+:):/home/{{ user_name }}:(.*)$"
-        replace: "{{ user_name }}:\\1:/home/{{ user_name }}:\\2"
+        replace: "{{ user_name }}:\\1:/home/{{ user_name }}:/usr/bin/zsh"
 
     - name: Restory dconf backup
       shell: "/usr/bin/dbus-launch /usr/bin/dconf load -f / < {{ backup_dir }}/gnome.backup.dconf"
