@@ -35,11 +35,11 @@
       vars:
         folder_name: "{{ item | urlsplit('path') | basename | regex_replace('(.*)\\.git$', '\\1') }} "
       loop: "{{ repo_list }}"
-    
-    - name: install oh-my-zsh
-      become_user: "{{ user_name }}"
-      command:
-        cmd: 'echo "yes" | sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+
+    - name: Install oh-my-zsh
+      git:
+        repo: https://raw.github.com/ohmyzsh/ohmyzsh.git
+        dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/"
 
     - name: Dance with zsh, install theme https://typewritten.dev
       git:
@@ -47,7 +47,7 @@
         dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/themes/typewritten/"
         force: yes
 
-    - name: Dance with zsh, install zsh-autosuggestions plugin
+    - name: Install oh-my-zsh plugin zsh-autosuggestions
       git:
         repo: https://github.com/zsh-users/zsh-autosuggestions 
         dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/zsh-autosuggestions"
