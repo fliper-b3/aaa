@@ -1,6 +1,7 @@
 #!/bin/bash
 AAA='https://github.com/fliper-b3/aaa'
-/usr/bin/git clone ${AAA} ${HOEM}/aaa
+[ -d ${HOME}/aaa ] && cd ${HOME}/aaa && git pull
+[ ! -d ${HOME}/aaa ] && /usr/bin/git clone ${AAA} ${HOEM}/aaa
 [ $? -ne 0 ] && echo "Can't download main repo ${AAA}" && echo 1
 /usr/bin/python3.9 --version > echo "/usr/bin/python3.9 not found" && exit 1
 /usr/bin/python3.9 -m venv ${HOEM}/aaa/.venv

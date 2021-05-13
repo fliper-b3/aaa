@@ -1,6 +1,7 @@
 ---
 - hosts: all
   become: yes
+  become_user: "{{ user_name }}"
   vars:
     build_dir:  "{{ lookup('env', 'HOME') }}/.build"
     backup_dir: "{{ playbook_dir }}/.backup"
@@ -11,7 +12,6 @@
 
   tasks:
     - name: git clone aur soft
-      become_user: "{{ user_name }}"
       git:
         repo: "{{ item }}" 
         dest: "{{ build_dir }}/{{ folder_name | trim  }}"
@@ -28,7 +28,6 @@
       ignore_errors: yes
 
     - name: Install aur soft
-      become_user: "{{ user_name }}"
       command:
         chdir: "{{ build_dir }}/{{ folder_name | trim }}"
         cmd: /usr/bin/makepkg --install --noconfirm --force --clean --syncdeps
@@ -40,8 +39,9 @@
       git:
         repo: https://raw.github.com/ohmyzsh/ohmyzsh.git
         dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/"
+        clone: no
 
-    - name: Dance with zsh, install theme https://typewritten.dev
+    - name: Install theme https://typewritten.dev
       git:
         repo: https://github.com/reobin/typewritten.git
         dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/themes/typewritten/"
@@ -53,21 +53,19 @@
         dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/zsh-autosuggestions"
         force: yes
 
-    - name: install vscode extenstions
-      become_user: "{{ user_name }}"
+    - name: Install vscode extenstions
       command:
         cmd: "/usr/bin/code --install-extension {{ item }}"
       loop: "{{ vscode_ext }}"
     
-    - name: Dance with zsh, restory my .zshrc file
+    - name: Restory my .zshrc file
       template:
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         src: "{{ backup_dir }}/.zshrc"
         dest: "{{ lookup('env', 'HOME') }}/.zshrc"
 
-    - name: oh my zsh custom plugins install
-      become_user: "{{ user_name }}"
+    - name: oh-my-zsh install custom plugins
       git:
         repo: "{{ item.url }}" 
         dest: "{{ lookup('env', 'HOME') }}/{{ folder_name }}/{{ item.name }}"
@@ -75,14 +73,13 @@
         folder_name: ".oh-my-zsh/custom/plugins"
       loop: "{{ zsh_list }}"
 
-    - name: Ansible replace string example
+    - name: Setup zsh for user
       replace:
         path: /etc/passwd
         regexp: "^{{ user_name }}:(x:\d+:\d+:):/home/{{ user_name }}:(.*)$"
         replace: "{{ user_name }}:\1:/home/{{ user_name }}:\2"
 
     - name: Restory dconf backup
-      become_user: "{{ user_name }}"
       shell: "/usr/bin/dbus-launch /usr/bin/dconf load -f / < {{ backup_dir }}/gnome.backup.dconf"
 
     - name: setup cron jobs
@@ -107,7 +104,7 @@
         group: "{{ user_name }}"
 
 
-    - name: Start and enable services
+    - name: Enable services
       service:
         name: sddm
         enabled: yes
