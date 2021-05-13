@@ -21,6 +21,7 @@
       loop: "{{ repo_list }}"
 
     - name: Setup softs list
+      become_user: root
       package:
         state: present
         name: "{{ item }}"
