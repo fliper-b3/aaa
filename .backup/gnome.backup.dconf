@@ -35,11 +35,15 @@ app-preferences='<Primary>p'
 session-close='<Primary>q'
 terminal-add-bookmark='disabled'
 terminal-advanced-paste='<Primary><Shift>p'
+terminal-copy='<Super>c'
 terminal-file-browser='<Primary>f'
+terminal-find='<Super>f'
 terminal-find-next='<Primary><Shift>n'
 terminal-find-previous='disabled'
 terminal-insert-number='disabled'
 terminal-layout='disabled'
+terminal-paste='<Super>v'
+terminal-paste-primary='<Primary>v'
 win-switch-to-next-session='<Primary>Right'
 win-switch-to-previous-session='<Primary>Left'
 
@@ -47,27 +51,186 @@ win-switch-to-previous-session='<Primary>Left'
 list=['2b7c4080-0ddd-46c5-8f23-563fd3ba789d']
 
 [com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
-background-color='#272822'
+background-color='#24241F1F3131'
 background-transparency-percent=0
 badge-color='#AC7EA8'
 badge-color-set=false
 bold-color-set=false
 cursor-background-color='#777776767B7B'
 cursor-colors-set=false
-dim-transparency-percent=100
-foreground-color='#F8F8F2'
+dim-transparency-percent=15
+foreground-color='#C0C0BFBFBCBC'
 highlight-background-color='#3D3D38384646'
 highlight-colors-set=false
 notify-silence-threshold=0
-palette=['#272822', '#F92672', '#A6E22E', '#F4BF75', '#66D9EF', '#AE81FF', '#A1EFE4', '#F8F8F2', '#75715E', '#F92672', '#A6E22E', '#F4BF75', '#66D9EF', '#AE81FF', '#A1EFE4', '#F9F8F5']
+palette=['#000000000000', '#F92672', '#A6E22E', '#F4BF75', '#66D9EF', '#AE81FF', '#A1EFE4', '#F8F8F2', '#777776767B7B', '#F92672', '#A6E22E', '#F4BF75', '#66D9EF', '#AE81FF', '#A1EFE4', '#F9F8F5']
 terminal-bell='none'
-use-theme-colors=false
+use-theme-colors=true
 visible-name='Default'
 
 [org/gnome/Music]
 window-maximized=true
 window-position=[0, 0]
 window-size=[1920, 1006]
+
+[org/gnome/Totem]
+active-plugins=['screensaver', 'autoload-subtitles', 'screenshot', 'open-directory', 'skipto', 'save-file', 'variable-rate', 'recent', 'vimeo', 'apple-trailers', 'rotation', 'movie-properties', 'media-player-keys']
+subtitle-encoding='UTF-8'
+
+[org/gnome/builder]
+window-maximized=true
+window-position=(0, 0)
+window-size=(1920, 1006)
+
+[org/gnome/builder/editor/language/automake]
+insert-spaces-instead-of-tabs=false
+insert-trailing-newline=true
+tab-width=8
+
+[org/gnome/builder/editor/language/c-sharp]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=false
+overwrite-braces=true
+spaces-style=['before-left-paren']
+tab-width=8
+
+[org/gnome/builder/editor/language/c]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+spaces-style=['before-left-paren']
+tab-width=2
+
+[org/gnome/builder/editor/language/chdr]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+spaces-style=['before-left-paren']
+tab-width=2
+
+[org/gnome/builder/editor/language/commonlisp]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+overwrite-braces=true
+right-margin-position=100
+tab-width=2
+
+[org/gnome/builder/editor/language/cpp]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=4
+
+[org/gnome/builder/editor/language/css]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/gradle]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/html]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/java]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/js]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/makefile]
+insert-spaces-instead-of-tabs=false
+insert-trailing-newline=true
+tab-width=8
+
+[org/gnome/builder/editor/language/markdown]
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+tab-width=4
+trim-trailing-whitespace=false
+
+[org/gnome/builder/editor/language/python]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=4
+
+[org/gnome/builder/editor/language/python3]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=4
+
+[org/gnome/builder/editor/language/ruby]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/rust]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+right-margin-position=100
+tab-width=4
+
+[org/gnome/builder/editor/language/vala]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=4
+
+[org/gnome/builder/editor/language/xml]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/calculator]
+accuracy=9
+angle-units='degrees'
+base=10
+button-mode='basic'
+number-format='automatic'
+show-thousands=false
+show-zeroes=false
+source-currency=''
+source-units='degree'
+target-currency=''
+target-units='radian'
+window-position=(26, 23)
+word-size=64
 
 [org/gnome/calendar]
 active-view='month'
@@ -111,10 +274,16 @@ gtk-im-module='gtk-im-context-simple'
 show-battery-percentage=false
 
 [org/gnome/desktop/notifications]
-application-children=['gnome-power-panel', 'telegramdesktop', 'chromium', 'org-gnome-fileroller', 'us-zoom-zoom', 'com-gexperts-tilix', 'smartgit', 'org-gnome-software', 'org-gnome-nautilus', 'org-gnome-baobab', 'xdg-desktop-portal-gtk', 'com-skype-client']
+application-children=['gnome-power-panel', 'telegramdesktop', 'chromium', 'org-gnome-fileroller', 'us-zoom-zoom', 'com-gexperts-tilix', 'smartgit', 'org-gnome-software', 'org-gnome-nautilus', 'org-gnome-baobab', 'xdg-desktop-portal-gtk', 'com-skype-client', 'code-oss']
+
+[org/gnome/desktop/notifications/application/accerciser]
+enable=true
 
 [org/gnome/desktop/notifications/application/chromium]
 application-id='chromium.desktop'
+
+[org/gnome/desktop/notifications/application/code-oss]
+application-id='code-oss.desktop'
 
 [org/gnome/desktop/notifications/application/com-gexperts-tilix]
 application-id='com.gexperts.Tilix.desktop'
@@ -149,6 +318,9 @@ application-id='us.zoom.Zoom.desktop'
 [org/gnome/desktop/notifications/application/xdg-desktop-portal-gtk]
 application-id='xdg-desktop-portal-gtk.desktop'
 
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=false
+
 [org/gnome/desktop/peripherals/mouse]
 accel-profile='adaptive'
 natural-scroll=true
@@ -163,10 +335,20 @@ disable-microphone=false
 [org/gnome/desktop/wm/preferences]
 button-layout='close:appmenu'
 
+[org/gnome/eog/view]
+background-color='rgb(0,0,0)'
+use-background-color=true
+
 [org/gnome/epiphany/state]
 is-maximized=true
 window-position=(0, 0)
 window-size=(0, 0)
+
+[org/gnome/evince]
+document-directory=@ms 'file:///home/ivan/Downloads/quntilope_BIC_docs'
+
+[org/gnome/evince/default]
+window-ratio=(1.0181451612903225, 0.71751009741031124)
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -174,6 +356,39 @@ network-monitor-gio-name=''
 
 [org/gnome/evolution]
 default-task-list='381545ae6ed026eb4450ad6a0d004136dc965b88'
+version='3.38.3'
+
+[org/gnome/evolution/addressbook]
+completion-minimum-query-length=3
+completion-show-address=false
+
+[org/gnome/evolution/calendar]
+prefer-new-item=''
+week-start-day-name='monday'
+work-day-friday=true
+work-day-monday=true
+work-day-saturday=false
+work-day-sunday=false
+work-day-thursday=true
+work-day-tuesday=true
+work-day-wednesday=true
+
+[org/gnome/evolution/mail]
+browser-close-on-reply-policy='ask'
+composer-visually-wrap-long-lines=false
+forward-style-name='attached'
+image-loading-policy='never'
+junk-check-incoming=true
+reply-style-name='quoted'
+search-gravatar-for-photo=false
+
+[org/gnome/evolution/mail/composer-window]
+height=500
+maximized=false
+width=600
+
+[org/gnome/evolution/shell]
+attachment-view=0
 
 [org/gnome/file-roller/listing]
 list-mode='as-folder'
@@ -192,12 +407,12 @@ dynamic-workspaces=true
 workspaces-only-on-primary=false
 
 [org/gnome/nautilus/preferences]
-default-folder-viewer='icon-view'
+default-folder-viewer='list-view'
 search-filter-time-type='last_modified'
 
 [org/gnome/nautilus/window-state]
 initial-size=(890, 550)
-maximized=false
+maximized=true
 sidebar-width=200
 
 [org/gnome/photos]
@@ -225,13 +440,16 @@ favorite-apps=['chromium.desktop', 'telegramdesktop.desktop', 'code-oss.desktop'
 [org/gnome/shell/extensions/auto-move-windows]
 application-list=['chromium.desktop:1', 'com.gexperts.Tilix.desktop:6', 'smartgit.desktop:3', 'code-oss.desktop:5', 'telegramdesktop.desktop:2', 'com.slack.Slack.desktop:4']
 
+[org/gnome/shell/keybindings]
+toggle-message-tray=@as []
+
 [org/gnome/shell/world-clocks]
 locations=@av []
 
 [org/gnome/software]
-check-timestamp=int64 1612614127
+check-timestamp=int64 1620905203
 first-run=false
-online-updates-timestamp=int64 1612614137
+online-updates-timestamp=int64 1620372789
 
 [org/gnome/todo]
 default-provider='local'
@@ -239,7 +457,7 @@ view='grid'
 window-maximized=true
 
 [org/gtk/settings/color-chooser]
-custom-colors=[(0.51372549019607838, 0.58039215686274515, 0.58823529411764708, 1.0), (0.027450980392156862, 0.21176470588235294, 0.25882352941176473, 1.0), (0.93333333333333335, 0.90980392156862744, 0.83529411764705885, 1.0), (0.0, 0.16862745098039217, 0.21176470588235294, 1.0), (0.14901960784313725, 0.54509803921568623, 0.82352941176470584, 1.0), (0.396078431372549, 0.4823529411764706, 0.51372549019607838, 1.0), (0.99215686274509807, 0.96470588235294119, 0.8901960784313725, 1.0), (0.32941176470588235, 0.33725490196078434, 0.32156862745098042, 1.0)]
+custom-colors=[(0.97254901960784312, 0.97254901960784312, 0.94901960784313721, 1.0), (0.45882352941176469, 0.44313725490196076, 0.36862745098039218, 1.0), (0.15294117647058825, 0.15686274509803921, 0.13333333333333333, 1.0), (0.51372549019607838, 0.58039215686274515, 0.58823529411764708, 1.0), (0.027450980392156862, 0.21176470588235294, 0.25882352941176473, 1.0), (0.93333333333333335, 0.90980392156862744, 0.83529411764705885, 1.0), (0.0, 0.16862745098039217, 0.21176470588235294, 1.0), (0.14901960784313725, 0.54509803921568623, 0.82352941176470584, 1.0)]
 selected-color=(true, 0.0, 0.0, 0.0, 1.0)
 
 [org/gtk/settings/file-chooser]
@@ -249,9 +467,9 @@ show-hidden=true
 show-size-column=true
 show-type-column=true
 sidebar-width=174
-sort-column='name'
+sort-column='modified'
 sort-directories-first=false
-sort-order='ascending'
+sort-order='descending'
 type-format='category'
 window-position=(345, 79)
 window-size=(1231, 902)
@@ -288,6 +506,16 @@ autoconnect=1
 scaling=1
 vm-window-size=(1024, 810)
 
+[org/virt-manager/virt-manager/vms/0a6a0148d7aa44c7aeab990ad8b7dd64]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 871)
+
+[org/virt-manager/virt-manager/vms/0c209d656fc7432e9252104121bb8850]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
 [org/virt-manager/virt-manager/vms/19ffa8b3bfc047e092258f927656b295]
 autoconnect=1
 scaling=1
@@ -313,6 +541,11 @@ autoconnect=1
 scaling=1
 vm-window-size=(1024, 810)
 
+[org/virt-manager/virt-manager/vms/2d0902afd8c542a6bbe2809bd949e417]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
 [org/virt-manager/virt-manager/vms/45a6ee4b03b746129c5a10b27061f2b8]
 autoconnect=1
 scaling=1
@@ -329,6 +562,11 @@ scaling=1
 vm-window-size=(1024, 810)
 
 [org/virt-manager/virt-manager/vms/555a12adcffc41ec86de75b7d5424172]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/603c1a9444854022a4fb371569ef7664]
 autoconnect=1
 scaling=1
 vm-window-size=(1024, 810)

@@ -92,6 +92,7 @@
         job: "{{ item.path }}"
       loop:
         - { name: "backup zsh",                path: "/usr/bin/cp ${HOME}/.zshrc {{ playbook_dir }}/.backup/.zshrc" }
+        - { name: "backup dconf",              path: "/usr/bin/dconf dump / > {{ playbook_dir }}/.backup/gnome.backup.dconf" }
         - { name: "backup aur soft",           path: "{{ playbook_dir }}/scripts/aur.backup.sh" }
         - { name: "backup autostart dir",      path: "{{ playbook_dir }}/scripts/autostart.sh" }
         - { name: "backup vscode plugins",     path: "{{ playbook_dir }}/scripts/code.plubins.backup.sh" }
