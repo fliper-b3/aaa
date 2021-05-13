@@ -7,7 +7,7 @@
     repo_list:  "{{ lookup('file', lookup('vars', 'backup_dir')+'/aur.git.url.txt').split() }}"
     soft_list:  "{{ lookup('file', lookup('vars', 'backup_dir')+'/pacman.installed.txt').split() }}"
     vscode_ext: "{{ lookup('file', lookup('vars', 'backup_dir')+'/vsc-ext.txt').split() }}"
-    zsh_list:   "{{ lookup('file', lookup('vars', 'backup_dir')+'/zsh.customplugins.url.txt').split() }}"
+    zsh_list:   "{{ lookup('file', lookup('vars', 'backup_dir')+'/zsh.customplugins.url.txt') | from_yaml }}"
 
   tasks:
     - name: git clone aur soft
@@ -69,12 +69,17 @@
     - name: oh my zsh custom plugins install
       become_user: "{{ user_name }}"
       git:
-        repo: "{{ item }}" 
-        dest: "{{ lookup('env', 'HOME') }}/{{ folder_name }}"
-        force: yes
+        repo: "{{ item.url }}" 
+        dest: "{{ lookup('env', 'HOME') }}/{{ folder_name }}/{{ item.name }}"
       vars:
         folder_name: ".oh-my-zsh/custom/plugins"
       loop: "{{ zsh_list }}"
+
+    - name: Ansible replace string example
+      replace:
+        path: /etc/passwd
+        regexp: "^{{ user_name }}:(x:\d+:\d+:):/home/{{ user_name }}:(.*)$"
+        replace: "{{ user_name }}:\1:/home/{{ user_name }}:\2"
 
     - name: Restory dconf backup
       become_user: "{{ user_name }}"

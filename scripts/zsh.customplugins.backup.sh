@@ -8,6 +8,7 @@ cd ${HOME}/.oh-my-zsh/custom/plugins
 for FOLDER in `ls`; do
     pushd ${FOLDER} > /dev/null 
     URL=$(git config --get remote.origin.url)
-    echo ${URL} >> ${FILENAME}
+    echo "- name: \"${FOLDER}\"" >> ${FILENAME}
+    echo "  url: \"${URL}\"" >> ${FILENAME}
     popd > /dev/null
 done
