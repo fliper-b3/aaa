@@ -36,12 +36,6 @@
         folder_name: "{{ item | urlsplit('path') | basename | regex_replace('(.*)\\.git$', '\\1') }} "
       loop: "{{ repo_list }}"
     
-    - name: install vscode extenstions
-      become_user: "{{ user_name }}"
-      command:
-        cmd: "/usr/bin/code --install-extension {{ item }}"
-      loop: "{{ vscode_ext }}"
-    
     - name: install oh-my-zsh
       become_user: "{{ user_name }}"
       command:
@@ -59,6 +53,12 @@
         dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/zsh-autosuggestions"
         force: yes
 
+    - name: install vscode extenstions
+      become_user: "{{ user_name }}"
+      command:
+        cmd: "/usr/bin/code --install-extension {{ item }}"
+      loop: "{{ vscode_ext }}"
+    
     - name: Dance with zsh, restory my .zshrc file
       template:
         owner: "{{ user_name }}"
