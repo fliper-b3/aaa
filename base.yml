@@ -161,18 +161,8 @@
     - name: Generate locales
       command: arch-chroot /mnt locale-gen
 
-    - name: Check if user exist
-      command: arch-chroot /mnt id -u {{ user_name }}
-      register: if_user_exists
-      ignore_errors: yes
-    
-    - name: Show user info 
-      debug:
-        msg: "{{ if_user_exists }}"
-    
     - name: Create user account
       command: arch-chroot /mnt useradd --create-home --user-group --groups wheel {{ user_name }} --password {{ user_password }}
-      when: if_user_exists.rc == 1
         
     - name: Create user's ssh directory
       file:
@@ -184,6 +174,11 @@
       loop:
         - chmod 0700 /home/{{ user_name }}/.ssh
         - chown {{ user_name }}:{{ user_name }} /home/{{ user_name }}/.ssh
+
+    - name: Download bootstrap file
+      get_url:
+        url: https://raw.githubusercontent.com/fliper-b3/aaa/main/bootstrap.sh
+        dest: /mnt/home/{{ user_name }}/.local/bin/bootstrap.sh
 
     - name: Give passwordless sudo access to wheel group
       copy:
