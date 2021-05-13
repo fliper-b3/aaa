@@ -4,6 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export LC_ALL="en_US.UTF-8"
+export EDITOR="vim"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -72,7 +73,7 @@ ZSH_THEME="typewritten/typewritten"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git ansible aws zsh-navigation-tools cp command-not-found zsh-autosuggestions vscode sudo)
-plugins=(git ansible aws zsh-navigation-tools cp command-not-found vscode sudo)
+plugins=(git ansible aws zsh-navigation-tools cp command-not-found vscode sudo helm kubetail)
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -80,6 +81,7 @@ source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
+export AWS_PROFILE=qlp-eu-int 
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -102,5 +104,39 @@ source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+_kex() {
+   local PODNAME
+   [[ -z $1 ]] && echo "Have to setup a pod name or any unique part of the pod"
+   PODNAME=$(kubectl get pods | rg -ie "$1.*\s+\d+/\d+\s+Running" | cut -d " " -f 1)
+   kubectl exec -it ${PODNAME} -- bash
+}
+
+_klog() {
+   local PODNAME
+   [[ -z $1 ]] && echo "Have to setup a pod name or any unique part of the pod" && return 1
+   TOTALPODS=""
+   for PODNAME in $(kubectl get pods | rg -ie "$1.*\s+\d+/\d+\s+Running" | cut -d " " -f 1 | sed -e 's/\n/ /'); do
+       echo --------------------------- start logs for pod: ${PODNAME} ---------------------------------------------------------------------------------
+       kubectl logs ${PODNAME}
+       [[ -n ${TOTALPODS} ]] && TOTALPODS="${TOTALPODS}\n${PODNAME}"
+       [[ -z ${TOTALPODS} ]] && TOTALPODS="${PODNAME}"
+  done
+  echo -------------------------------------------------------------------------------------------------------------------------------------------------
+  echo ${TOTALPODS}
+
+}
+
 alias ll="exa -la"
 alias tree="exa --tree -la"
+alias k='kubectl'
+alias kgp='kubectl get pods'
+alias kgw='kubectl get pods -w'
+alias kgpk='kubectl get pods -n kube-system'
+alias kg='kubectl get'
+alias kex=_kex
+alias kgx='kubectx'
+alias kns='kubens'
+alias klog=_klog
+alias kdd="kubectl describe deployment"
+alias kdp="kubectl describe pod"
+alias ktl="kubetail"

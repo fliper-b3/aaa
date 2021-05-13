@@ -106,6 +106,7 @@
 
 
     - name: Enable services
+      become_user: root
       service:
         name: sddm
         enabled: yes
