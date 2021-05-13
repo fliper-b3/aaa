@@ -40,7 +40,6 @@
       git:
         repo: https://github.com/ohmyzsh/ohmyzsh.git
         dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/"
-        clone: no
 
     - name: Install theme https://typewritten.dev
       git:
