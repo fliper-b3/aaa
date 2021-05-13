@@ -190,7 +190,7 @@
       get_url:
         url: https://raw.githubusercontent.com/fliper-b3/aaa/main/bootstrap.sh
         dest: /mnt/home/{{ user_name }}/.local/bin/bootstrap.sh
-        mode: 0770
+        mode: 0777
 
     - name: Give passwordless sudo access to wheel group
       copy:
