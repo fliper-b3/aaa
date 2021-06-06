@@ -25,7 +25,7 @@ use-overlay-scrollbar=true
 use-tabs=true
 warn-vte-config-issue=false
 window-save-state=true
-window-state=87184
+window-state=87056
 window-style='disable-csd-hide-toolbar'
 
 [com/gexperts/Tilix/keybindings]
@@ -239,7 +239,7 @@ window-position=(0, 0)
 window-size=(1920, 1006)
 
 [org/gnome/control-center]
-last-panel='keyboard'
+last-panel='power'
 
 [org/gnome/desktop/a11y/magnifier]
 mag-factor=6.0
@@ -262,6 +262,7 @@ translate=true
 show-weekdate=false
 
 [org/gnome/desktop/input-sources]
+mru-sources=[('xkb', 'us'), ('xkb', 'ru')]
 per-window=true
 sources=[('xkb', 'us'), ('xkb', 'ru')]
 xkb-options=['lv3:ralt_switch']
@@ -269,9 +270,11 @@ xkb-options=['lv3:ralt_switch']
 [org/gnome/desktop/interface]
 clock-show-weekday=true
 enable-animations=false
+font-antialiasing='grayscale'
+font-hinting='slight'
 gtk-enable-primary-paste=false
 gtk-im-module='gtk-im-context-simple'
-show-battery-percentage=false
+show-battery-percentage=true
 
 [org/gnome/desktop/notifications]
 application-children=['gnome-power-panel', 'telegramdesktop', 'chromium', 'org-gnome-fileroller', 'us-zoom-zoom', 'com-gexperts-tilix', 'smartgit', 'org-gnome-software', 'org-gnome-nautilus', 'org-gnome-baobab', 'xdg-desktop-portal-gtk', 'com-skype-client', 'code-oss']
@@ -429,13 +432,13 @@ binding='<Primary>Escape'
 command='tilix --full-screen --focus-window'
 name='tilix '
 
-[org/gnome/settings-daemon/plugins/xsettings]
-antialiasing='grayscale'
-hinting='slight'
+[org/gnome/settings-daemon/plugins/power]
+idle-dim=true
 
 [org/gnome/shell]
 enabled-extensions=['auto-move-windows@gnome-shell-extensions.gcampax.github.com']
 favorite-apps=['chromium.desktop', 'telegramdesktop.desktop', 'code-oss.desktop', 'smartgit.desktop', 'com.gexperts.Tilix.desktop', 'virt-manager.desktop', 'com.skype.Client.desktop']
+welcome-dialog-last-shown-version='40.1'
 
 [org/gnome/shell/extensions/auto-move-windows]
 application-list=['chromium.desktop:1', 'com.gexperts.Tilix.desktop:6', 'smartgit.desktop:3', 'code-oss.desktop:5', 'telegramdesktop.desktop:2', 'com.slack.Slack.desktop:4']
@@ -447,7 +450,7 @@ toggle-message-tray=@as []
 locations=@av []
 
 [org/gnome/software]
-check-timestamp=int64 1620905203
+check-timestamp=int64 1622976123
 first-run=false
 online-updates-timestamp=int64 1620372789
 
@@ -456,6 +459,9 @@ default-provider='local'
 view='grid'
 window-maximized=true
 
+[org/gnome/tweaks]
+show-extensions-notice=false
+
 [org/gtk/settings/color-chooser]
 custom-colors=[(0.97254901960784312, 0.97254901960784312, 0.94901960784313721, 1.0), (0.45882352941176469, 0.44313725490196076, 0.36862745098039218, 1.0), (0.15294117647058825, 0.15686274509803921, 0.13333333333333333, 1.0), (0.51372549019607838, 0.58039215686274515, 0.58823529411764708, 1.0), (0.027450980392156862, 0.21176470588235294, 0.25882352941176473, 1.0), (0.93333333333333335, 0.90980392156862744, 0.83529411764705885, 1.0), (0.0, 0.16862745098039217, 0.21176470588235294, 1.0), (0.14901960784313725, 0.54509803921568623, 0.82352941176470584, 1.0)]
 selected-color=(true, 0.0, 0.0, 0.0, 1.0)
@@ -463,7 +469,7 @@ selected-color=(true, 0.0, 0.0, 0.0, 1.0)
 [org/gtk/settings/file-chooser]
 date-format='regular'
 location-mode='path-bar'
-show-hidden=true
+show-hidden=false
 show-size-column=true
 show-type-column=true
 sidebar-width=174
@@ -471,7 +477,7 @@ sort-column='modified'
 sort-directories-first=false
 sort-order='descending'
 type-format='category'
-window-position=(345, 79)
+window-position=(345, 82)
 window-size=(1231, 902)
 
 [org/virt-manager/virt-manager]
