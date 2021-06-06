@@ -253,3 +253,5 @@ helm
 bat
 docker
 exa
+firefox
+make
